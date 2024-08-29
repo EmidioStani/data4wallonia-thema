@@ -1,17 +1,17 @@
 [
 {
-  "name": "cpsv-ap",
+  "name": "d4wta-ap",
   "type": "ap",
   "eap": "Data4Wallonia.eap",
-  "diagram": "Data4Wallonia",
-  "template": "cpsv-ap_en.j2",
-  "title": "Core Public Service Vocabulary Application Profile (CPSV-AP)",
-  "publication-state": "SEMIC Recommendation",
-  "publication-date": "2024-05-06",
+  "diagram": "Taxonomy",
+  "template": "d4wta-ap_en.j2",
+  "title": "Data4Wallonia Taxonomy Application Profile (D4WTA-AP)",
+  "publication-state": "Draft",
+  "publication-date": "2024-08-29",
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "contributors-file": "stakeholders.csv",
   "contributors-column": "CPSV-AP",
-  "site": "site-skeleton/cpsv-ap",
+  "site": "site-skeleton/d4wta-ap",
   "repourl": "https://github.com/SEMICeu/CPSV-AP/tree/master/releases/3.2.0",
   "versionurl": "https://github.com/SEMICeu/CPSV-AP/tree/master/releases/3.2.0",
   "feedbackurl": "https://github.com/SEMICeu/CPSV-AP/issues",
@@ -19,10 +19,10 @@
     "translation": [
       {
         "language":"en",
-        "template":"cpsv-ap_en.j2",
-        "title": "Core Public Service Vocabulary Application Profile (CPSV-AP)",
-        "translationjson":"cpsv-ap_en.json",
-        "mergefile":"cpsv-ap_en_merged.jsonld"
+        "template":"d4wta-ap_en.j2",
+        "title": "Data4Wallonia Taxonomy Application Profile (D4WTA-AP)",
+        "translationjson":"d4wta-ap_en.json",
+        "mergefile":"d4wta-ap_en_merged.jsonld"
       }
     ],
     "toolchainversion" : "3",
