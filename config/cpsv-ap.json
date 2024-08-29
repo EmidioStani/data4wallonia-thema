@@ -3,7 +3,7 @@
   "name": "cpsv-ap",
   "type": "ap",
   "eap": "CPSV-AP.eap",
-  "diagram": "CPSV-AP",
+  "diagram": "Data4Wallonia",
   "template": "cpsv-ap_en.j2",
   "title": "Core Public Service Vocabulary Application Profile (CPSV-AP)",
   "publication-state": "SEMIC Recommendation",
