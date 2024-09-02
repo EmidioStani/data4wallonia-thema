@@ -10,12 +10,12 @@
   "publication-date": "2024-08-29",
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "contributors-file": "stakeholders.csv",
-  "contributors-column": "CPSV-AP",
+  "contributors-column": "D4WTA-AP",
   "site": "site-skeleton/d4wta-ap",
-  "repourl": "https://github.com/SEMICeu/CPSV-AP/tree/master/releases/3.2.0",
-  "versionurl": "https://github.com/SEMICeu/CPSV-AP/tree/master/releases/3.2.0",
-  "feedbackurl": "https://github.com/SEMICeu/CPSV-AP/issues",
-  "standaardregisterurl" :"https://github.com/SEMICeu/CPSV-AP/blob/master/releases/3.2.0/Changelog.md",
+  "repourl": "https://github.com/EmidioStani/D4WTA-AP/tree/master/releases/1.0.0",
+  "versionurl": "https://github.com/EmidioStani/D4WTA-AP/tree/master/releases/1.0.0",
+  "feedbackurl": "https://github.com/EmidioStani/D4WTA-AP/issues",
+  "standaardregisterurl" :"https://github.com/EmidioStani/CPSV-AP/blob/master/releases/1.0.0/Changelog.md",
     "translation": [
       {
         "language":"en",
@@ -28,7 +28,7 @@
     "toolchainversion" : "3",
     "documentconfig": {
           "statuslabel" : "SEMIC Candidate Recommendation",
-          "editorDocumentroot" : "https://semiceu.github.io/uri.semic.eu-generated/CPSV-AP/releases/3.2.0"
+          "editorDocumentroot" : "https://emidiostani.github.io/data4wallonia-generated/D4WTA-AP/releases/1.0.0"
     }
 }
 ]
