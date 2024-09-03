@@ -1,0 +1,25 @@
+@prefix : <http://example.com/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+:Pattern1 a sh:NodeShape ;
+  sh:targetClass skos:Concept ;
+  sh:severity sh:Error ;
+  sh:property [
+    sh:path skos:prefLabel ;
+    sh:datatype rdf:langString ;
+    sh:languageIn ("fr" "en") ;
+  ] .
+  
+:Pattern2 a sh:NodeShape ;
+    sh:targetClass skos:Concept ;
+    sh:severity sh:Error ;
+    sh:property [
+      sh:path skos:prefLabel ;
+      sh:qualifiedMinCount 1;
+      sh:qualifiedValueShape [
+        sh:datatype rdf:langString ;
+        sh:languageIn ( "fr" ) ;
+      ] ;
+    ] .

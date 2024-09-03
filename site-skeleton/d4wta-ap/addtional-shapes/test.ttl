@@ -1,0 +1,47 @@
+@prefix ex: <http://example.com/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+ex:concept1 a skos:Concept;
+  skos:prefLabel "test11"@en, "test12"@fr .
+
+ex:concept2 a skos:Concept;
+  skos:prefLabel "test2"@en .
+
+ex:concept3 a skos:Concept;
+  skos:inScheme ex:conceptscheme1;
+  skos:prefLabel "test3"@fr .
+
+ex:concept4 a skos:Concept;
+  skos:prefLabel "test41"@fr, "test42"@it .
+
+ex:concept5 a skos:Concept;
+  skos:prefLabel "test51"@fr, "test52"@fr-FR .
+  
+ex:concept6 a skos:Concept;
+  skos:prefLabel ""@fr .
+ 
+ex:concept7 a skos:Concept;
+  skos:inScheme ex:conceptscheme1;
+  skos:prefLabel "test3"@fr .
+
+ex:concept8 a skos:Concept;
+  skos:prefLabel "test2"@en .
+
+ex:concept9 a skos:Concept;
+  skos:topConceptOf ex:conceptscheme2;
+  skos:broader ex:concept8;
+  skos:prefLabel "test9"@fr .
+  
+ex:concept10 a skos:Concept;
+  skos:prefLabel "test101"@fr, "test102"@fr .
+
+ex:concept11 a skos:Concept;
+  skos:prefLabel "test111"@fr ; 
+  skos:broader ex:concept111;
+  skos:altLabel "test111"@fr .
+  
+ex:concept12 a skos:Concept;
+  skos:prefLabel "test12" . 
+
+ex:conceptscheme1 a skos:ConceptScheme .
+ex:conceptscheme2 a skos:ConceptScheme, skos:Concept .

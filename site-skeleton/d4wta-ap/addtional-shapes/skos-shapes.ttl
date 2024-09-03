@@ -1,0 +1,277 @@
+@prefix : <http://skohub.io/skohub-shacl> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix sdo: <https://schema.org> .
+
+
+# declare the skos prefix to use it in later SPARQL-based constraints
+skos:
+  a owl:Ontology ;
+  owl:imports sh: ;
+  sh:declare [
+    sh:prefix "skos" ;
+    sh:namespace "http://www.w3.org/2004/02/skos/core#"^^xsd:anyURI ;
+  ] .
+
+####################
+# ConceptSchemes
+####################
+:DisjointConceptAndConceptScheme
+  a sh:NodeShape ;
+  sh:targetClass skos:Concept ;
+  sh:sparql [
+    sh:prefixes skos: ;
+    sh:message "S9: skos:ConceptScheme is disjoint with skos:Concept." ;
+    sh:select """
+    SELECT $this
+    WHERE {
+      $this a skos:ConceptScheme 
+    }""" ;
+  ] ;
+.
+
+:DisjointConceptSchemeAndConcept
+  a sh:NodeShape ;
+  sh:targetClass skos:ConceptScheme ;
+  sh:sparql [
+    sh:prefixes skos: ;
+    sh:message "S9: skos:ConceptScheme is disjoint with skos:Concept (viceversa)." ;
+    sh:select """
+    SELECT $this
+    WHERE {
+      $this a skos:Concept
+    }""" ;
+  ] ;
+.
+
+###################
+# Lexical Labels
+###################
+:LexicalLabels
+  a sh:NodeShape ;
+  sh:targetSubjectsOf skos:prefLabel ;
+  sh:targetSubjectsOf skos:altLabel ;
+  sh:targetSubjectsOf skos:hiddenLabel ;
+  sh:property [
+    sh:path skos:prefLabel ;
+    sh:message "S13: skos:prefLabel, skos:altLabel and skos:hiddenLabel are pairwise disjoint properties." ;
+    sh:disjoint skos:altLabel ;
+    sh:disjoint skos:hiddenLabel ;
+  ] ;
+  sh:property [
+    sh:path skos:altLabel ;
+    sh:message "S13: skos:prefLabel, skos:altLabel and skos:hiddenLabel are pairwise disjoint properties." ;
+    sh:disjoint skos:hiddenLabel ;
+    sh:disjoint skos:prefLabel ;
+  ] ;
+  sh:property [
+    sh:path skos:hiddenLabel ;
+    sh:message "S13: skos:prefLabel, skos:altLabel and skos:hiddenLabel are pairwise disjoint properties." ;
+    sh:disjoint skos:altLabel ;
+    sh:disjoint skos:prefLabel ;
+  ] ;
+  sh:property [
+    sh:path skos:prefLabel ;
+    sh:message "S14: A resource has no more than one value of skos:prefLabel per language tag." ;
+    sh:datatype rdf:langString ;
+    sh:uniqueLang true ;
+  ] ;
+  .
+
+######################
+# Semantic Relations
+######################
+:SemanticRelationsS27
+  a sh:NodeShape ;
+  sh:targetSubjectsOf skos:broader ;
+  sh:targetSubjectsOf skos:related ;
+  sh:property [
+    sh:path skos:related ;
+    sh:message "S27: skos:related is disjoint with the property skos:broaderTransitive." ;
+    sh:disjoint skos:broader ;
+    sh:disjoint skos:broaderTransitive ;
+    sh:disjoint skos:narrower ;
+    sh:disjoint skos:narrowerTransitive ;
+  ] ;
+  .
+
+:SemanticRelationsS19S20
+  a sh:NodeShape ;
+  sh:targetObjectsOf skos:broader ;
+  sh:targetObjectsOf skos:narrower ;
+  sh:targetObjectsOf skos:related ;
+  sh:targetSubjectsOf skos:broader ;
+  sh:targetSubjectsOf skos:narrower ;
+  sh:targetSubjectsOf skos:related ;
+  sh:sparql [
+    sh:prefixes skos: ;
+    sh:message "S19/S20: domain and range of SKOS semantic relations is the class skos:Concept. " ;
+    sh:select """
+    SELECT $this
+    WHERE {
+      FILTER NOT EXISTS { $this a skos:Concept .}
+    }""" ;
+  ] ;
+.
+
+:ConceptShape
+  a sh:NodeShape ;
+  sh:targetClass skos:Concept ;
+  sh:property [
+    sh:path skos:prefLabel ;
+    sh:minCount 1 ;
+    sh:datatype rdf:langString ;
+    sh:uniqueLang true ;
+    sh:message "Each skos:Concept has to provide at least 1 skos:prefLabel in a unique language" ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Tested with 10_c_no_prefLabel.ttl" ;
+  ] ;
+  sh:property [
+    sh:path skos:prefLabel ;
+    sh:severity sh:Violation ;
+    sh:datatype rdf:langString ;
+    sh:message "Preferred label should be provided with a language tag." ;
+    rdfs:comment "Tested with 11_c_no_language.ttl" ;
+  ] ;
+  sh:property [
+    sh:path skos:altLabel ;
+    sh:severity sh:Violation ;
+    sh:datatype rdf:langString ;
+    sh:message "Alternative label should be provided with a language tag." ;
+    rdfs:comment "Tested with 12_c_altLabel_no_language.ttl" ;
+  ] ;
+  sh:property [
+    sh:path skos:hiddenLabel ;
+    sh:severity sh:Violation ;
+    sh:datatype rdf:langString ;
+    sh:message "Hidden label should be provided with a language tag." ;
+    rdfs:comment "Tested with 13_c_hiddenLabel_no_language.ttl" ;
+  ] ;
+  sh:property [
+    sh:path skos:definition ;
+    sh:severity sh:Violation ;
+    sh:uniqueLang true ;
+    sh:datatype rdf:langString ;
+    sh:message "Definition should be provided with a unique language tag." ;
+    rdfs:comment "Tested with 14_c_definition_no_language.ttl" ;
+    rdfs:comment "Tested with 15_c_definition_no_unique_language.ttl" ;
+  ] ;
+  sh:property [
+    sh:path skos:scopeNote ;
+    sh:severity sh:Violation ;
+    sh:datatype rdf:langString ;
+    sh:message "Scope Note should be provided with a language tag." ;
+    rdfs:comment "Tested with 16_c_scopeNote_no_language.ttl" ;
+  ] ;
+  sh:property [
+    sh:path skos:note ;
+    sh:severity sh:Violation ;
+    sh:datatype rdf:langString ;
+    sh:message "Note should be provided with a language tag." ;
+    rdfs:comment "Tested with 17_c_note_no_language.ttl" ;
+  ] ;
+  sh:property [
+    sh:path skos:notation ;
+    sh:severity sh:Violation ;
+    sh:datatype xsd:string ;
+    sh:message "Notation should be provided as a string." ;
+    rdfs:comment "Tested with 18_c_notation_no_string.ttl" ;
+  ] ;
+  sh:property [
+    sh:path skos:example ;
+    sh:severity sh:Violation ;
+    sh:datatype rdf:langString ;
+    sh:message "Example should be provided with a language tag." ;
+    rdfs:comment "Tested with 19_c_example_no_language.ttl" ;
+  ] ;
+  sh:property [
+    sh:path skos:narrower ;
+    sh:class skos:Concept ;
+    sh:severity sh:Violation ;
+    sh:message "Target class of skos:narrower should be a skos:Concept" ;
+    rdfs:comment "Tested with 20_c_narrower_target_no_concept.ttl" ;
+  ] ;
+  sh:property [ 
+    sh:class skos:Concept ;
+    sh:path skos:narrowerTransitive ;
+    sh:severity sh:Violation ;
+    sh:message "Target class of skos:narrowerTransitive should be a skos:Concept" ;
+    rdfs:comment "Tested with 21_c_narrowerTransitive_target_no_concept.ttl" ;
+  ] ;
+  sh:property [
+    sh:path skos:narrowMatch ;
+    sh:nodeKind sh:IRI ;
+    sh:severity sh:Violation ;
+    sh:message "Target class of skos:narrowMatch should be a URI" ;
+    rdfs:comment "Tested with 22_c_narrowMatch_target_no_iri.ttl" ;
+  ] ;
+  sh:property [
+    sh:path skos:broader ;
+    sh:class skos:Concept ;
+    sh:severity sh:Violation ;
+    sh:message "Target class of skos:broader should be a skos:Concept" ;
+    rdfs:comment "Tested with 23_c_broader_no_concept.ttl" ;
+  ] ;
+  sh:property [
+    sh:path skos:broaderTransitive ;
+    sh:class skos:Concept ;
+    sh:severity sh:Violation ;
+    sh:message "Target class of skos:broaderTransitive should be a skos:Concept" ;
+    rdfs:comment "Tested with 24_c_broaderTransitive_no_concept.ttl" ;
+  ] ;
+  sh:property [
+    sh:path skos:broadMatch ;
+    sh:nodeKind sh:IRI ;
+    sh:severity sh:Violation ;
+    sh:message "Target class of skos:broadMatch should be a URI" ;
+    rdfs:comment "Tested with 25_c_broadMatch_no_iri.ttl" ;
+  ] ;
+  sh:property [
+    sh:path skos:related ;
+    sh:class skos:Concept ;
+    sh:severity sh:Violation ;
+    sh:message "Target class of skos:related should be a skos:Concept" ;
+    rdfs:comment "Tested with 26_c_related_no_concept.ttl" ;
+  ] ;
+  sh:property [
+    sh:path skos:relatedMatch ;
+    sh:nodeKind sh:IRI ;
+    sh:severity sh:Violation ;
+    sh:message "Target class of skos:relatedMatch should be a URI" ;
+    rdfs:comment "Tested with 27_c_relatedMatch_no_iri.ttl" ;
+  ] ;
+  sh:property [
+    sh:path skos:closeMatch ;
+    sh:nodeKind sh:IRI ;
+    sh:severity sh:Violation ;
+    sh:message "Target class of skos:closeMatch should be a URI" ;
+    rdfs:comment "Tested with 28_c_closeMatch_no_iri.ttl" ;
+  ] ;
+  sh:property [
+    sh:path skos:exactMatch ;
+    sh:nodeKind sh:IRI ;
+    sh:severity sh:Violation ;
+    sh:message "Target class of skos:exactMatch should be a URI" ;
+    rdfs:comment "Tested with 29_c_exactMatch_no_iri.ttl" ;
+  ] ;
+  sh:property [
+    sh:path skos:inScheme ;
+    sh:class skos:ConceptScheme ;
+    sh:severity sh:Violation ;
+    sh:message "Target class of skos:inScheme should be a skos:ConceptScheme" ;
+    rdfs:comment "Tested with 30_c_inScheme_target_no_cs.ttl" ;
+  ] ;
+  sh:property [
+    sh:path skos:topConceptOf ;
+    sh:class skos:ConceptScheme ;
+    sh:severity sh:Violation ;
+    sh:message "Target class of skos:topConceptOf should be a skos:ConceptScheme" ;
+    rdfs:comment "Tested with 31_c_topConceptOf_target_no_conceptScheme.ttl" ;
+  ] ;
+  .
