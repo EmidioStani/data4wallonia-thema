@@ -25,7 +25,7 @@
         "@value": "2024-09-02"
       },
       "owl:versionInfo" : {
-        "@value": "2024-09-02-0"
+        "@value": "1.0.0"
       },
 	  "skos:hasTopConcept" : {
 		"@id" : "ex:eco-materiaux"
@@ -43,7 +43,7 @@
           "@value": "Matériaux respectant l'environment"
 	  },
       "owl:versionInfo" : {
-        "@value": "2024-09-02-0"
+        "@value": "1.0.0"
       },
       "euvoc:status" : {
 		"@id" : "status:CURRENT"		
@@ -68,7 +68,7 @@
           "@value": "Matériaux pour constructions"
 	  },
       "owl:versionInfo" : {
-        "@value": "2024-09-02-0"
+        "@value": "1.0.0"
       },
       "euvoc:status" : {
 		"@id" : "status:CURRENT"		

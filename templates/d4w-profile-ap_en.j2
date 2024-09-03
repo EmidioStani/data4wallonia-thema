@@ -332,17 +332,10 @@
 			      {%- if class.rawTags['class-usage-scope'] == "main" %}
 			      <a href="#{{ class.label[language] | replace(" ","") | urlencode }}">{{ class.label[language] }}</a> | {%- endif %}{%- endfor %}
                         </p>
-                        <p>
-                            The main entities are supported by:
-                            <br />
-                            | {%- for class in classes |sort(attribute=sortattr) %} 
-			      {%- if class.rawTags['class-usage-scope'] != "main" %}
-			      <a href="#{{ class.label[language] | replace(" ","") | urlencode }}">{{ class.label[language] }}</a> | {%- endif %}{%- endfor %}
-                        </p>
                 {% endif %}
                 {% if ( ( datatypes | length ) > 0 ) %}
                         <p>
-                            And supported by these datatypes:
+                            The main entities are supported by these datatypes:
                             <br />
                             | {%- for datatype in datatypes |sort(attribute=sortattr) %} <a href="#{{ datatype.label[language] | replace(" ","") | urlencode }}">{{ datatype.label[language] }}</a> | {%- endfor %}
                         </p>
@@ -527,22 +520,6 @@ The main entities are those that form the core of the Application Profile.
 {% endfor %}
 </section>
 
-<section>
-<h2>
-   Supportive Entities
-</h2>
-The supportive entities are supporting the main entities in the Application Profile. 
-They are included in the Application Profile because they form the range of properties.
-
-
-{% for entity in classes | sort(attribute=sortattr) %}
-{% if entity.rawTags['class-usage-scope'] != "main"   %}
-   {{ renderentity(entity) }}
-{% endif %}
-{% endfor %}
-
-</section>
-
     <section>
         <h2>
             Datatypes
@@ -645,8 +622,8 @@ They are included in the Application Profile because they form the range of prop
 {% block usages %}
 <section class="informative">
 	<h2>Usage Guidelines</h2>
-    {% include "AP-implementation.j2" ignore missing %}
-    {% include "CV-governance.j2" ignore missing %}
+    {% include "d4w-AP-implementation.j2" ignore missing %}
+    {% include "d4w-CV-governance.j2" ignore missing %}
 </section>
 {% endblock %} 
 

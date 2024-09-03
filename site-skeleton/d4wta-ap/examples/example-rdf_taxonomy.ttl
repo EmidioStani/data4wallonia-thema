@@ -16,7 +16,7 @@ ex:data_4_wallonia dcterms:identifier "data_4_wallonia" ;
 
 ex:eco-materiaux skos:prefLabel "Eco-Matériaux"@fr ;
 	skos:definition "Matériaux respectant l'environment"@fr ;
-	owl:versionInfo "2024-09-02-0" ;
+	owl:versionInfo "1.0.0" ;
 	euvoc:status status:CURRENT ;
 	skos:inScheme ex:data_4_wallonia ;
 	skos:topConceptOf ex:data_4_wallonia ;
@@ -24,7 +24,7 @@ ex:eco-materiaux skos:prefLabel "Eco-Matériaux"@fr ;
 
 ex:elements_structurels skos:prefLabel "Eléments structurels"@fr ;
 	skos:definition "Matériaux pour constructions"@fr ;
-	owl:versionInfo "2024-09-02-0" ;
+	owl:versionInfo "1.0.0" ;
 	euvoc:status status:CURRENT ;
 	skos:broader ex:eco-materiaux ;
 	skos:inScheme ex:data_4_wallonia ;
