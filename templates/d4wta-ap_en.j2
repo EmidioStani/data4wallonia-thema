@@ -118,5 +118,10 @@ This specification uses the following prefixes to shorten the URIs for readibili
 {% endblock %}
 
 {% block additionalconstraints %}
-Additional shapes can be found <a href="./additional-shapes/">here</a>.
+Additional shapes can be found: 
+<ul>
+<li><a href="./html/additional-shapes/skos-shapes.ttl">skos-shapes.ttl</a> for generic skos validation (conceptscheme disjoint from concept, unique labels per language) </li>
+<li><a href="./html/additional-shapes/skos-best-practices-shapes.ttl">skos-best-practices-shapes.ttl</a> to apply best practices (no empty or overlapping labels)</li>
+<li><a href="./html/additional-shapes/skos-d4w-shapes.ttl">skos-d4w-shapes.ttl</a> to apply requirements for Data4Wallonia (labels at least in French and optional in English)</li>
+</ul>
 {% endblock %}
