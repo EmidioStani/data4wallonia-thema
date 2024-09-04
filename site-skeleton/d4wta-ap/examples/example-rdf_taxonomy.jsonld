@@ -40,7 +40,7 @@
       },
 	  "skos:definition" : {
 	      "@language": "fr",
-          "@value": "Matériaux respectant l'environment"
+          "@value": "Matériaux respectueux de l'environnement"
 	  },
       "owl:versionInfo" : {
         "@value": "1.0.0"

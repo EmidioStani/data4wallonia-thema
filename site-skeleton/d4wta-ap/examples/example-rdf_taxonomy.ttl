@@ -15,7 +15,7 @@ ex:data_4_wallonia dcterms:identifier "data_4_wallonia" ;
 	a skos:ConceptScheme .
 
 ex:eco-materiaux skos:prefLabel "Eco-Matériaux"@fr ;
-	skos:definition "Matériaux respectant l'environment"@fr ;
+	skos:definition "Matériaux respectueux de l'environnement"@fr ;
 	owl:versionInfo "1.0.0" ;
 	euvoc:status status:CURRENT ;
 	skos:inScheme ex:data_4_wallonia ;
