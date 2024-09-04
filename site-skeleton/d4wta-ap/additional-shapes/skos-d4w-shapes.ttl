@@ -1,25 +1,26 @@
 @prefix : <http://example.com/> .
 @prefix euvoc: <http://publications.europa.eu/ontology/euvoc#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix status: <http://publications.europa.eu/resource/dataset/concept-status/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
 :D4WLabelsInFrenchOrEnglish a sh:NodeShape ;
-  sh:targetClass skos:Concept ;
+  sh:targetClass skos:Concept, skos:ConceptScheme ;
   sh:severity sh:Error ;
   sh:property [
-    sh:message "A skos:Concept should have labels in French or English" ;
+    sh:message "Labels should be in French or English" ;
     sh:path skos:prefLabel ;
     sh:datatype rdf:langString ;
     sh:languageIn ("fr" "en") ;
   ] .
   
 :D4WLabelsAtLeastInFrench a sh:NodeShape ;
-    sh:targetClass skos:Concept ;
+    sh:targetClass skos:Concept, skos:ConceptScheme ;
     sh:severity sh:Error ;
     sh:property [
-	  sh:message "A skos:Concept should have at least 1 label in French" ;
+	  sh:message "Labels should be at least in French" ;
       sh:path skos:prefLabel ;
       sh:qualifiedMinCount 1;
       sh:qualifiedValueShape [
@@ -27,6 +28,24 @@
         sh:languageIn ( "fr" ) ;
       ] ;
     ] .
+
+:D4WLabelsDoNotContainCharachters a sh:NodeShape ;
+    sh:targetClass skos:Concept, skos:ConceptScheme ;
+    sh:severity sh:Warning ;
+    sh:property [
+      sh:path skos:prefLabel ;
+      sh:message "The label should not contain special characters: & - ( ) \\ or /" ;
+      sh:not [sh:pattern "^.*[&\\-()\\\\/]+.*$"] ;
+      ] .
+
+:D4WLabelsStartCapital a sh:NodeShape ;
+    sh:targetClass skos:Concept, skos:ConceptScheme ;
+    sh:severity sh:Warning ;
+    sh:property [
+      sh:path skos:prefLabel ;
+      sh:message "The label should start with capital letter" ;
+      sh:pattern "^[A-Z]+.*$" ;
+      ] .
 
 :D4WStatusConcept a sh:NodeShape ;
     sh:targetClass skos:Concept ;
@@ -41,3 +60,13 @@
 			  status:REVISED status:REVISED_DEPRECATED 
 			  status:WAITING status:WAITING_DEPRECATED ) ;
 	] .
+
+:D4WStatusConcept a sh:NodeShape ;
+    sh:targetClass skos:Concept ;
+    sh:severity sh:Error ;
+    sh:property [
+	  sh:message "A skos:Concept should have the versionInfo's value according to Semantic Versioning" ;
+          sh:path owl:versionInfo ;
+	  sh:pattern "(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$" ;
+    ] .
+	

@@ -4,50 +4,77 @@
 @prefix status: <http://publications.europa.eu/resource/dataset/concept-status/> .
 
 ex:concept1 a skos:Concept;
-  skos:prefLabel "test11"@en, "test12"@fr .
+  skos:prefLabel "Test11"@en, "Test12"@fr .
 
 ex:concept2 a skos:Concept;
-  skos:prefLabel "test2"@en .
+  skos:prefLabel "Test2"@en .
 
 ex:concept3 a skos:Concept;
   skos:inScheme ex:conceptscheme1;
-  skos:prefLabel "test3"@fr .
+  skos:prefLabel "Test3"@fr .
 
 ex:concept4 a skos:Concept;
-  skos:prefLabel "test41"@fr, "test42"@it .
+  skos:prefLabel "Test41"@fr, "Test42"@it .
 
 ex:concept5 a skos:Concept;
-  skos:prefLabel "test51"@fr, "test52"@fr-FR .
+  skos:prefLabel "Test51"@fr, "Test52"@fr-FR .
   
 ex:concept6 a skos:Concept;
   skos:prefLabel ""@fr .
  
 ex:concept7 a skos:Concept;
   skos:inScheme ex:conceptscheme1;
-  skos:prefLabel "test3"@fr .
+  skos:prefLabel "Test3"@fr .
 
 ex:concept8 a skos:Concept;
-  skos:prefLabel "test2"@en .
+  skos:prefLabel "Test2"@en .
 
 ex:concept9 a skos:Concept;
   skos:topConceptOf ex:conceptscheme2;
   skos:broader ex:concept8;
-  skos:prefLabel "test9"@fr .
+  skos:prefLabel "Test9"@fr .
   
 ex:concept10 a skos:Concept;
-  skos:prefLabel "test101"@fr, "test102"@fr .
+  skos:prefLabel "Test101"@fr, "Test102"@fr .
 
 ex:concept11 a skos:Concept;
-  skos:prefLabel "test111"@fr ; 
+  skos:prefLabel "Test111"@fr ; 
   skos:broader ex:concept111;
-  skos:altLabel "test111"@fr .
+  skos:altLabel "Test111"@fr .
   
 ex:concept12 a skos:Concept;
-  skos:prefLabel "test12" . 
+  skos:prefLabel "Test12" . 
 
 ex:concept13 a skos:Concept;
   skos:prefLabel "test13"@fr ;
   euvoc:status status:INPROGRESS .
+
+ex:concept14 a skos:Concept;
+  skos:prefLabel "Accompagnement & développement"@fr .
+  
+ex:concept15 a skos:Concept;
+  skos:prefLabel "Anti Virus\\\\/Worm\\\\/Malware"@fr .
+  
+ex:concept16 a skos:Concept;
+  skos:prefLabel "Backup \\\\/ Storage Security"@fr .
+  
+ex:concept17 a skos:Concept;
+  skos:prefLabel "Chanvre - Chanvre \\\\/ lin"@fr .
+  
+ex:concept18 a skos:Concept;
+  skos:prefLabel "Intelligence artificielle (IA\\\\/AI)"@fr .
+  
+ex:concept19 a skos:Concept;
+  skos:prefLabel "Chanvre - Feutre (acoustique)"@fr .
+  
+ex:concept20 a skos:Concept;
+  skos:prefLabel "Mouton - Feutre acoustique"@fr .
+  
+ex:concept21 a skos:Concept;
+  skos:prefLabel "Calcul haute performance (HPC)"@fr .
+
+ex:concept22 a skos:Concept;
+  skos:prefLabel "Test22"@fr . 
 
 ex:conceptscheme1 a skos:ConceptScheme .
 ex:conceptscheme2 a skos:ConceptScheme, skos:Concept .
