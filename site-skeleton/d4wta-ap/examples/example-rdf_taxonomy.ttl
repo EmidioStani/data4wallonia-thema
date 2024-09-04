@@ -10,7 +10,7 @@
 ex:data_4_wallonia dcterms:identifier "data_4_wallonia" ;
 	skos:prefLabel "Data 4 Wallonia"@en ;
 	dcterms:created "2024-09-02"^^xsd:date ;
-	owl:versionInfo "2024-09-02-0" ;
+	owl:versionInfo "1.0.0" ;
 	skos:hasTopConcept ex:eco-materiaux ;
 	a skos:ConceptScheme .
 

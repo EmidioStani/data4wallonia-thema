@@ -1,21 +1,25 @@
 @prefix : <http://example.com/> .
-@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix euvoc: <http://publications.europa.eu/ontology/euvoc#> .
+@prefix status: <http://publications.europa.eu/resource/dataset/concept-status/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
-:Pattern1 a sh:NodeShape ;
+:D4WLabelsInFrenchOrEnglish a sh:NodeShape ;
   sh:targetClass skos:Concept ;
   sh:severity sh:Error ;
   sh:property [
+    sh:message "A skos:Concept should have labels in French or English" ;
     sh:path skos:prefLabel ;
     sh:datatype rdf:langString ;
     sh:languageIn ("fr" "en") ;
   ] .
   
-:Pattern2 a sh:NodeShape ;
+:D4WLabelsAtLeastInFrench a sh:NodeShape ;
     sh:targetClass skos:Concept ;
     sh:severity sh:Error ;
     sh:property [
+	  sh:message "A skos:Concept should have at least 1 label in French" ;
       sh:path skos:prefLabel ;
       sh:qualifiedMinCount 1;
       sh:qualifiedValueShape [
@@ -23,3 +27,17 @@
         sh:languageIn ( "fr" ) ;
       ] ;
     ] .
+
+:D4WStatusConcept a sh:NodeShape ;
+    sh:targetClass skos:Concept ;
+    sh:severity sh:Error ;
+    sh:property [
+	  sh:message "A skos:Concept should have the status's value according to the Concept Status code list" ;
+      sh:path euvoc:status ;
+	  sh:in ( status:CANDIDATE status:CANDIDATE_DEPRECATED 
+	          status:CURRENT status:DEPRECATED 
+			  status:DRAFT status:DRAFT_DEPRECATED 
+			  status:PLANNED status:RETIRED 
+			  status:REVISED status:REVISED_DEPRECATED 
+			  status:WAITING status:WAITING_DEPRECATED ) ;
+	] .

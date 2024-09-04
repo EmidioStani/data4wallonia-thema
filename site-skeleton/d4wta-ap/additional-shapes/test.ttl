@@ -1,5 +1,7 @@
+@prefix euvoc: <http://publications.europa.eu/ontology/euvoc#> .
 @prefix ex: <http://example.com/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix status: <http://publications.europa.eu/resource/dataset/concept-status/> .
 
 ex:concept1 a skos:Concept;
   skos:prefLabel "test11"@en, "test12"@fr .
@@ -42,6 +44,10 @@ ex:concept11 a skos:Concept;
   
 ex:concept12 a skos:Concept;
   skos:prefLabel "test12" . 
+
+ex:concept13 a skos:Concept;
+  skos:prefLabel "test13"@fr ;
+  euvoc:status status:INPROGRESS .
 
 ex:conceptscheme1 a skos:ConceptScheme .
 ex:conceptscheme2 a skos:ConceptScheme, skos:Concept .
