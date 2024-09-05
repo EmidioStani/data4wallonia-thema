@@ -1,16 +1,16 @@
 @prefix : <http://example.com/> .
 @prefix euvoc: <http://publications.europa.eu/ontology/euvoc#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix status: <http://publications.europa.eu/resource/dataset/concept-status/> .
+@prefix status: <http://publications.europa.eu/resource/authority/concept-status/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
 :D4WLabelsInFrenchOrEnglish a sh:NodeShape ;
   sh:targetClass skos:Concept, skos:ConceptScheme ;
-  sh:severity sh:Error ;
   sh:property [
-    sh:message "Labels should be in French or English" ;
+    sh:severity sh:Violation ;
+    sh:message "Labels should have French or English tag" ;
     sh:path skos:prefLabel ;
     sh:datatype rdf:langString ;
     sh:languageIn ("fr" "en") ;
@@ -18,9 +18,9 @@
   
 :D4WLabelsAtLeastInFrench a sh:NodeShape ;
     sh:targetClass skos:Concept, skos:ConceptScheme ;
-    sh:severity sh:Error ;
     sh:property [
-	  sh:message "Labels should be at least in French" ;
+      sh:severity sh:Violation ;
+	  sh:message "Labels should have at least a French tag" ;
       sh:path skos:prefLabel ;
       sh:qualifiedMinCount 1;
       sh:qualifiedValueShape [
@@ -31,26 +31,26 @@
 
 :D4WLabelsDoNotContainCharachters a sh:NodeShape ;
     sh:targetClass skos:Concept, skos:ConceptScheme ;
-    sh:severity sh:Warning ;
     sh:property [
+	  sh:severity sh:Warning ;
       sh:path skos:prefLabel ;
-      sh:message "The label should not contain special characters: & - ( ) \\ or /" ;
+      sh:message "Labels should not contain special characters: & - ( ) \\ or /" ;
       sh:not [sh:pattern "^.*[&\\-()\\\\/]+.*$"] ;
       ] .
 
 :D4WLabelsStartCapital a sh:NodeShape ;
     sh:targetClass skos:Concept, skos:ConceptScheme ;
-    sh:severity sh:Warning ;
     sh:property [
+      sh:severity sh:Warning ;
       sh:path skos:prefLabel ;
-      sh:message "The label should start with capital letter" ;
+      sh:message "Labels should start with capital letter" ;
       sh:pattern "^[A-Z]+.*$" ;
       ] .
 
 :D4WStatusConcept a sh:NodeShape ;
     sh:targetClass skos:Concept ;
-    sh:severity sh:Error ;
     sh:property [
+	  sh:severity sh:Violation ;
 	  sh:message "A skos:Concept should have the status's value according to the Concept Status code list" ;
       sh:path euvoc:status ;
 	  sh:in ( status:CANDIDATE status:CANDIDATE_DEPRECATED 
@@ -62,11 +62,11 @@
 	] .
 
 :D4WStatusConcept a sh:NodeShape ;
-    sh:targetClass skos:Concept ;
-    sh:severity sh:Error ;
+    sh:targetClass skos:Concept, skos:ConceptScheme ;
     sh:property [
-	  sh:message "A skos:Concept should have the versionInfo's value according to Semantic Versioning" ;
-          sh:path owl:versionInfo ;
+	  sh:severity sh:Violation ;
+	  sh:message "The versionInfo's value should be according to Semantic Versioning" ;
+      sh:path owl:versionInfo ;
 	  sh:pattern "(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$" ;
     ] .
 	
