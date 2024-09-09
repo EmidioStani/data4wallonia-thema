@@ -1,7 +1,7 @@
 @prefix euvoc: <http://publications.europa.eu/ontology/euvoc#> .
 @prefix ex: <http://example.com/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix status: <http://publications.europa.eu/resource/dataset/concept-status/> .
+@prefix status: <http://publications.europa.eu/resource/authority/concept-status/> .
 
 ex:concept1 a skos:Concept;
   skos:prefLabel "Test11"@en, "Test12"@fr .
