@@ -131,5 +131,41 @@ ex:concept35 a skos:Concept ;
   skos:prefLabel "Test35"@fr ;
   skos:narrowMatch "Test24" .
 
+ex:concept36 a skos:Concept ;
+  skos:prefLabel "Test36"@fr ;
+  skos:broader ex:concept361 .
+  
+ex:concept37 a skos:Concept ;
+  skos:prefLabel "Test37"@fr ;
+  skos:broaderTransitive ex:concept371 .
+
+ex:concept38 a skos:Concept ;
+  skos:prefLabel "Test38"@fr ;
+  skos:broadMatch "Test28" .
+
+ex:concept39 a skos:Concept ;
+  skos:prefLabel "Test39"@fr ;
+  skos:related ex:concept391 .
+  
+ex:concept40 a skos:Concept ;
+  skos:prefLabel "Test40"@fr ;
+  skos:relatedMatch "Test40" .
+
+ex:concept41 a skos:Concept ;
+  skos:prefLabel "Test41"@fr ;
+  skos:closeMatch "Test41" .
+  
+ex:concept42 a skos:Concept ;
+  skos:prefLabel "Test42"@fr ;
+  skos:exactMatch "Test42" .
+
+ex:concept43 a skos:Concept ;
+  skos:prefLabel "Test43"@fr ;
+  skos:inScheme ex:conceptscheme431 .
+  
+ex:concept44 a skos:Concept ;
+  skos:prefLabel "Test44"@fr ;
+  skos:topConceptOf ex:concept441 .
+
 ex:conceptscheme1 a skos:ConceptScheme .
 ex:conceptscheme2 a skos:ConceptScheme, skos:Concept .
