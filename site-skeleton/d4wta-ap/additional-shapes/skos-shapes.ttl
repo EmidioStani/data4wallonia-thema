@@ -63,12 +63,13 @@ skos:
   sh:targetSubjectsOf skos:hiddenLabel ;
   rdfs:label "SKOS lexical labels are disjoint and prefLabel unique"@en ;
   rdfs:comment "Instances of SKOS prefLabel, altLabel and hiddenLabel should be disjoint and prefLabel unique"@en ;  
-  sh:property :SKOS-PrefLabelDisjoint, :SKOS-AltLabelDisjoint,
-              :SKOS-HiddenLabelDisjoint, :SKOS-PrefLabelUnique .
+  sh:property :SKOS-PrefLabelDisjoint , :SKOS-AltLabelDisjoint ,
+				:SKOS-PrefLabelDisjoint , :SKOS-AltLabelDisjoint ,
+				:SKOS-HiddenLabelDisjoint , :SKOS-PrefLabelUnique .
 
 :SKOS-PrefLabelDisjoint a sh:PropertyShape ;
   sh:name "skos:prefLabel is disjoint from other lexical labels"@en ;
-  sh:description "A skos:prefLabel should be disjont from other labels" ;
+  sh:description "A skos:prefLabel should be disjont from other labels"@en ;
   sh:severity sh:Violation ;
   sh:path skos:prefLabel ;
   sh:message "S13: skos:prefLabel, skos:altLabel and skos:hiddenLabel are pairwise disjoint properties." ;
@@ -77,25 +78,25 @@ skos:
 
 :SKOS-AltLabelDisjoint a sh:PropertyShape ;
   sh:name "skos:altLabel is disjoint from other lexical labels"@en ;
-  sh:description "A skos:altLabel should be disjont from other labels" ;
+  sh:description "A skos:altLabel should be disjont from other labels"@en ;
   sh:severity sh:Violation ;
   sh:path skos:altLabel ;
   sh:message "S13: skos:prefLabel, skos:altLabel and skos:hiddenLabel are pairwise disjoint properties." ;
   sh:disjoint skos:hiddenLabel ;
   sh:disjoint skos:prefLabel .
   
-:SKOS-HiddenLabelDisjointa sh:PropertyShape ;
+:SKOS-HiddenLabelDisjoint a sh:PropertyShape ;
   sh:name "skos:hiddenLabel is disjoint from other lexical labels"@en ;
-  sh:description "A skos:hiddenLabel should be disjont from other labels" ;
+  sh:description "A skos:hiddenLabel should be disjont from other labels"@en ;
   sh:severity sh:Violation ;
   sh:path skos:hiddenLabel ;
   sh:message "S13: skos:prefLabel, skos:altLabel and skos:hiddenLabel are pairwise disjoint properties." ;
   sh:disjoint skos:altLabel ;
   sh:disjoint skos:prefLabel .
 
-:SKOS-PrefLabelUnique sh:PropertyShape ;
+:SKOS-PrefLabelUnique a sh:PropertyShape ;
   sh:name "skos:hiddenLabel is disjoint from other lexical labels"@en ;
-  sh:description "A skos:hiddenLabel should be disjont from other labels" ;
+  sh:description "A skos:hiddenLabel should be disjont from other labels"@en ;
   sh:severity sh:Violation ;
   sh:path skos:prefLabel ;
   sh:message "S14: A resource has no more than one value of skos:prefLabel per language tag." ;
@@ -110,15 +111,18 @@ skos:
   sh:targetSubjectsOf skos:related ;
   rdfs:label "SKOS related is disjoint with broaderTransitive"@en ;
   rdfs:comment "Instances of SKOS related is disjoint with broaderTransitive."@en ;  
-  sh:property [
-    sh:path skos:related ;
-    sh:message "S27: skos:related is disjoint with the property skos:broaderTransitive." ;
-    sh:disjoint skos:broader ;
-    sh:disjoint skos:broaderTransitive ;
-    sh:disjoint skos:narrower ;
-    sh:disjoint skos:narrowerTransitive ;
-  ] ;
-  .
+  sh:property :SKOS-RelatedDisjoint .
+  
+:SKOS-RelatedDisjoint a sh:PropertyShape ;
+  sh:name "skos:related is disjoint from other skos semantic relations"@en ;
+  sh:description "A skos:related should be disjont from other skos semantic relations"@en ;
+  sh:severity sh:Violation ;
+  sh:path skos:related ;
+  sh:message "S27: skos:related is disjoint with the property skos:broaderTransitive." ;
+  sh:disjoint skos:broader ;
+  sh:disjoint skos:broaderTransitive ;
+  sh:disjoint skos:narrower ;
+  sh:disjoint skos:narrowerTransitive .
 
 :SemanticRelationsS19S20
   a sh:NodeShape ;
@@ -146,155 +150,187 @@ skos:
   sh:targetClass skos:Concept ;
   rdfs:label "skos:concept has requirements to be respected"@en ;
   rdfs:comment "The SKOS specification describe requirements for a skos:Concept"@en ; 
-  sh:property [
-    sh:path skos:prefLabel ;
-    sh:minCount 1 ;
-    sh:datatype rdf:langString ;
-    sh:uniqueLang true ;
-    sh:message "Each skos:Concept has to provide at least 1 skos:prefLabel in a unique language" ;
-    sh:severity sh:Violation ;
-    rdfs:comment "Tested with 10_c_no_prefLabel.ttl" ;
-  ] ;
-  sh:property [
-    sh:path skos:prefLabel ;
-    sh:severity sh:Violation ;
-    sh:datatype rdf:langString ;
-    sh:message "Preferred label should be provided with a language tag." ;
-    rdfs:comment "Tested with 11_c_no_language.ttl" ;
-  ] ;
-  sh:property [
-    sh:path skos:altLabel ;
-    sh:severity sh:Violation ;
-    sh:datatype rdf:langString ;
-    sh:message "Alternative label should be provided with a language tag." ;
-    rdfs:comment "Tested with 12_c_altLabel_no_language.ttl" ;
-  ] ;
-  sh:property [
-    sh:path skos:hiddenLabel ;
-    sh:severity sh:Violation ;
-    sh:datatype rdf:langString ;
-    sh:message "Hidden label should be provided with a language tag." ;
-    rdfs:comment "Tested with 13_c_hiddenLabel_no_language.ttl" ;
-  ] ;
-  sh:property [
-    sh:path skos:definition ;
-    sh:severity sh:Violation ;
-    sh:uniqueLang true ;
-    sh:datatype rdf:langString ;
-    sh:message "Definition should be provided with a unique language tag." ;
-    rdfs:comment "Tested with 14_c_definition_no_language.ttl" ;
-    rdfs:comment "Tested with 15_c_definition_no_unique_language.ttl" ;
-  ] ;
-  sh:property [
-    sh:path skos:scopeNote ;
-    sh:severity sh:Violation ;
-    sh:datatype rdf:langString ;
-    sh:message "Scope Note should be provided with a language tag." ;
-    rdfs:comment "Tested with 16_c_scopeNote_no_language.ttl" ;
-  ] ;
-  sh:property [
-    sh:path skos:note ;
-    sh:severity sh:Violation ;
-    sh:datatype rdf:langString ;
-    sh:message "Note should be provided with a language tag." ;
-    rdfs:comment "Tested with 17_c_note_no_language.ttl" ;
-  ] ;
-  sh:property [
-    sh:path skos:notation ;
-    sh:severity sh:Violation ;
-    sh:datatype xsd:string ;
-    sh:message "Notation should be provided as a string." ;
-    rdfs:comment "Tested with 18_c_notation_no_string.ttl" ;
-  ] ;
-  sh:property [
-    sh:path skos:example ;
-    sh:severity sh:Violation ;
-    sh:datatype rdf:langString ;
-    sh:message "Example should be provided with a language tag." ;
-    rdfs:comment "Tested with 19_c_example_no_language.ttl" ;
-  ] ;
-  sh:property [
-    sh:path skos:narrower ;
-    sh:class skos:Concept ;
-    sh:severity sh:Violation ;
-    sh:message "Target class of skos:narrower should be a skos:Concept" ;
-    rdfs:comment "Tested with 20_c_narrower_target_no_concept.ttl" ;
-  ] ;
-  sh:property [ 
-    sh:class skos:Concept ;
-    sh:path skos:narrowerTransitive ;
-    sh:severity sh:Violation ;
-    sh:message "Target class of skos:narrowerTransitive should be a skos:Concept" ;
-    rdfs:comment "Tested with 21_c_narrowerTransitive_target_no_concept.ttl" ;
-  ] ;
-  sh:property [
-    sh:path skos:narrowMatch ;
-    sh:nodeKind sh:IRI ;
-    sh:severity sh:Violation ;
-    sh:message "Target class of skos:narrowMatch should be a URI" ;
-    rdfs:comment "Tested with 22_c_narrowMatch_target_no_iri.ttl" ;
-  ] ;
-  sh:property [
-    sh:path skos:broader ;
-    sh:class skos:Concept ;
-    sh:severity sh:Violation ;
-    sh:message "Target class of skos:broader should be a skos:Concept" ;
-    rdfs:comment "Tested with 23_c_broader_no_concept.ttl" ;
-  ] ;
-  sh:property [
-    sh:path skos:broaderTransitive ;
-    sh:class skos:Concept ;
-    sh:severity sh:Violation ;
-    sh:message "Target class of skos:broaderTransitive should be a skos:Concept" ;
-    rdfs:comment "Tested with 24_c_broaderTransitive_no_concept.ttl" ;
-  ] ;
-  sh:property [
-    sh:path skos:broadMatch ;
-    sh:nodeKind sh:IRI ;
-    sh:severity sh:Violation ;
-    sh:message "Target class of skos:broadMatch should be a URI" ;
-    rdfs:comment "Tested with 25_c_broadMatch_no_iri.ttl" ;
-  ] ;
-  sh:property [
-    sh:path skos:related ;
-    sh:class skos:Concept ;
-    sh:severity sh:Violation ;
-    sh:message "Target class of skos:related should be a skos:Concept" ;
-    rdfs:comment "Tested with 26_c_related_no_concept.ttl" ;
-  ] ;
-  sh:property [
-    sh:path skos:relatedMatch ;
-    sh:nodeKind sh:IRI ;
-    sh:severity sh:Violation ;
-    sh:message "Target class of skos:relatedMatch should be a URI" ;
-    rdfs:comment "Tested with 27_c_relatedMatch_no_iri.ttl" ;
-  ] ;
-  sh:property [
-    sh:path skos:closeMatch ;
-    sh:nodeKind sh:IRI ;
-    sh:severity sh:Violation ;
-    sh:message "Target class of skos:closeMatch should be a URI" ;
-    rdfs:comment "Tested with 28_c_closeMatch_no_iri.ttl" ;
-  ] ;
-  sh:property [
-    sh:path skos:exactMatch ;
-    sh:nodeKind sh:IRI ;
-    sh:severity sh:Violation ;
-    sh:message "Target class of skos:exactMatch should be a URI" ;
-    rdfs:comment "Tested with 29_c_exactMatch_no_iri.ttl" ;
-  ] ;
-  sh:property [
-    sh:path skos:inScheme ;
-    sh:class skos:ConceptScheme ;
-    sh:severity sh:Violation ;
-    sh:message "Target class of skos:inScheme should be a skos:ConceptScheme" ;
-    rdfs:comment "Tested with 30_c_inScheme_target_no_cs.ttl" ;
-  ] ;
-  sh:property [
-    sh:path skos:topConceptOf ;
-    sh:class skos:ConceptScheme ;
-    sh:severity sh:Violation ;
-    sh:message "Target class of skos:topConceptOf should be a skos:ConceptScheme" ;
-    rdfs:comment "Tested with 31_c_topConceptOf_target_no_conceptScheme.ttl" ;
-  ] ;
-  .
+  sh:property :SKOS-ConceptPrefLabelUnique , :SKOS-ConceptPrefLabelLanguageTag ,
+				:SKOS-ConceptAltLabelLanguageTag , :SKOS-ConceptHiddenLabelLanguageTag ,
+				:SKOS-ConceptDefinitionUnique , :SKOS-ConceptScopeNoteUnique ,
+				:SKOS-ConceptNoteUnique , :SKOS-ConceptNotationString ,
+				:SKOS-ConceptExampleUnique , :SKOS-ConceptNarrowerTarget , 
+				:SKOS-ConceptNarrowerTransitiveTarget , :SKOS-ConceptNarrowMatchTarget ,
+				:SKOS-ConceptBroaderTarget , :SKOS-ConceptBroaderTransitiveTarget ,
+				:SKOS-ConceptBroadMatchTarget , :SKOS-ConceptRelatedTarget ,
+				:SKOS-ConceptRelatedMatchTarget , :SKOS-ConceptCloseMatchTarget ,
+				:SKOS-ConceptExactMatchTarget , :SKOS-ConceptInSchemeTarget ,
+				:SKOS-ConceptTopConceptOfTarget .
+  
+:SKOS-ConceptPrefLabelUnique a sh:PropertyShape ;
+  sh:name "skos:related is disjoint from other skos semantic relations"@en ;
+  sh:description "A skos:related should be disjont from other skos semantic relations"@en ;
+  sh:severity sh:Violation ;
+  sh:path skos:prefLabel ;
+  sh:minCount 1 ;
+  sh:datatype rdf:langString ;
+  sh:uniqueLang true ;
+  sh:message "Each skos:Concept has to provide at least 1 skos:prefLabel in a unique language" .
+  
+:SKOS-ConceptPrefLabelLanguageTag a sh:PropertyShape ;
+  sh:name "skos:related is disjoint from other skos semantic relations"@en ;
+  sh:description "A skos:related should be disjont from other skos semantic relations"@en ;
+  sh:severity sh:Violation ;
+  sh:path skos:prefLabel ;
+  sh:datatype rdf:langString ;
+  sh:message "Preferred label should be provided with a language tag." .
+
+:SKOS-ConceptAltLabelLanguageTag a sh:PropertyShape ;
+  sh:name "skos:related is disjoint from other skos semantic relations"@en ;
+  sh:description "A skos:related should be disjont from other skos semantic relations"@en ;
+  sh:severity sh:Violation ;
+  sh:path skos:altLabel ;
+  sh:datatype rdf:langString ;
+  sh:message "Alternative label should be provided with a language tag." .
+  
+:SKOS-ConceptHiddenLabelLanguageTag a sh:PropertyShape ;
+  sh:name "skos:related is disjoint from other skos semantic relations"@en ;
+  sh:description "A skos:related should be disjont from other skos semantic relations"@en ;
+  sh:severity sh:Violation ;
+  sh:path skos:hiddenLabel ;
+  sh:datatype rdf:langString ;
+  sh:message "Hidden label should be provided with a language tag." .
+  
+:SKOS-ConceptDefinitionUnique a sh:PropertyShape ;
+  sh:name "skos:related is disjoint from other skos semantic relations"@en ;
+  sh:description "A skos:related should be disjont from other skos semantic relations"@en ;
+  sh:severity sh:Violation ;
+  sh:path skos:definition ;
+  sh:uniqueLang true ;
+  sh:datatype rdf:langString ;
+  sh:message "Definition should be provided with a unique language tag." .
+ 
+:SKOS-ConceptScopeNoteUnique a sh:PropertyShape ;
+  sh:name "skos:related is disjoint from other skos semantic relations"@en ;
+  sh:description "A skos:related should be disjont from other skos semantic relations"@en ;
+  sh:severity sh:Violation ;
+  sh:path skos:scopeNote ;
+  sh:datatype rdf:langString ;
+  sh:message "Scope Note should be provided with a language tag." .
+
+:SKOS-ConceptNoteUnique a sh:PropertyShape ;
+  sh:name "skos:related is disjoint from other skos semantic relations"@en ;
+  sh:description "A skos:related should be disjont from other skos semantic relations"@en ;
+  sh:severity sh:Violation ;
+  sh:path skos:note ;
+  sh:severity sh:Violation ;
+  sh:datatype rdf:langString ;
+  sh:message "Note should be provided with a language tag." .
+  
+:SKOS-ConceptNotationString a sh:PropertyShape ;
+  sh:name "skos:related is disjoint from other skos semantic relations"@en ;
+  sh:description "A skos:related should be disjont from other skos semantic relations"@en ;
+  sh:severity sh:Violation ;  
+  sh:path skos:notation ;
+  sh:datatype xsd:string ;
+  sh:message "Notation should be provided as a string." .
+
+:SKOS-ConceptExampleUnique a sh:PropertyShape ;
+  sh:name "skos:related is disjoint from other skos semantic relations"@en ;
+  sh:description "A skos:related should be disjont from other skos semantic relations"@en ;
+  sh:severity sh:Violation ; 
+  sh:path skos:example ;
+  sh:datatype rdf:langString ;
+  sh:message "Example should be provided with a language tag." .
+  
+:SKOS-ConceptNarrowerTarget a sh:PropertyShape ;
+  sh:name "skos:related is disjoint from other skos semantic relations"@en ;
+  sh:description "A skos:related should be disjont from other skos semantic relations"@en ;
+  sh:severity sh:Violation ; 
+  sh:path skos:narrower ;
+  sh:class skos:Concept ;
+  sh:message "Target class of skos:narrower should be a skos:Concept" .
+   
+:SKOS-ConceptNarrowerTransitiveTarget a sh:PropertyShape ;
+  sh:name "skos:related is disjoint from other skos semantic relations"@en ;
+  sh:description "A skos:related should be disjont from other skos semantic relations"@en ;
+  sh:severity sh:Violation ; 
+  sh:class skos:Concept ;
+  sh:path skos:narrowerTransitive ;
+  sh:message "Target class of skos:narrowerTransitive should be a skos:Concept" .
+
+:SKOS-ConceptNarrowMatchTarget a sh:PropertyShape ;
+  sh:name "skos:related is disjoint from other skos semantic relations"@en ;
+  sh:description "A skos:related should be disjont from other skos semantic relations"@en ;
+  sh:severity sh:Violation ; 
+  sh:path skos:narrowMatch ;
+  sh:nodeKind sh:IRI ;
+  sh:message "Target class of skos:narrowMatch should be a URI" .
+
+:SKOS-ConceptBroaderTarget a sh:PropertyShape ;
+  sh:name "skos:related is disjoint from other skos semantic relations"@en ;
+  sh:description "A skos:related should be disjont from other skos semantic relations"@en ;
+  sh:severity sh:Violation ;
+  sh:path skos:broader ;
+  sh:class skos:Concept ;
+  sh:message "Target class of skos:broader should be a skos:Concept" .
+  
+:SKOS-ConceptBroaderTransitiveTarget a sh:PropertyShape ;
+  sh:name "skos:related is disjoint from other skos semantic relations"@en ;
+  sh:description "A skos:related should be disjont from other skos semantic relations"@en ;
+  sh:severity sh:Violation ;
+  sh:path skos:broaderTransitive ;
+  sh:class skos:Concept ;
+  sh:message "Target class of skos:broaderTransitive should be a skos:Concept" .
+
+:SKOS-ConceptBroadMatchTarget a sh:PropertyShape ;
+  sh:name "skos:related is disjoint from other skos semantic relations"@en ;
+  sh:description "A skos:related should be disjont from other skos semantic relations"@en ;
+  sh:severity sh:Violation ;
+  sh:path skos:broadMatch ;
+  sh:nodeKind sh:IRI ;
+  sh:message "Target class of skos:broadMatch should be a URI" .
+	
+:SKOS-ConceptRelatedTarget a sh:PropertyShape ;
+  sh:name "skos:related is disjoint from other skos semantic relations"@en ;
+  sh:description "A skos:related should be disjont from other skos semantic relations"@en ;
+  sh:severity sh:Violation ;
+  sh:path skos:related ;
+  sh:class skos:Concept ;
+  sh:message "Target class of skos:related should be a skos:Concept" .
+
+:SKOS-ConceptRelatedMatchTarget a sh:PropertyShape ;
+  sh:name "skos:related is disjoint from other skos semantic relations"@en ;
+  sh:description "A skos:related should be disjont from other skos semantic relations"@en ;
+  sh:severity sh:Violation ;
+  sh:path skos:relatedMatch ;
+  sh:nodeKind sh:IRI ;
+  sh:message "Target class of skos:relatedMatch should be a URI" .
+
+:SKOS-ConceptCloseMatchTarget a sh:PropertyShape ;
+  sh:name "skos:related is disjoint from other skos semantic relations"@en ;
+  sh:description "A skos:related should be disjont from other skos semantic relations"@en ;
+  sh:severity sh:Violation ;
+  sh:path skos:closeMatch ;
+  sh:nodeKind sh:IRI ;
+  sh:message "Target class of skos:closeMatch should be a URI" .
+
+:SKOS-ConceptExactMatchTarget a sh:PropertyShape ;
+  sh:name "skos:related is disjoint from other skos semantic relations"@en ;
+  sh:description "A skos:related should be disjont from other skos semantic relations"@en ;
+  sh:severity sh:Violation ;
+  sh:path skos:exactMatch ;
+  sh:nodeKind sh:IRI ;
+  sh:message "Target class of skos:exactMatch should be a URI" .
+ 
+:SKOS-ConceptInSchemeTarget a sh:PropertyShape ;
+  sh:name "skos:related is disjoint from other skos semantic relations"@en ;
+  sh:description "A skos:related should be disjont from other skos semantic relations"@en ;
+  sh:severity sh:Violation ;
+  sh:path skos:inScheme ;
+  sh:class skos:ConceptScheme ;
+  sh:message "Target class of skos:inScheme should be a skos:ConceptScheme" .
+
+:SKOS-ConceptTopConceptOfTarget a sh:PropertyShape ;
+  sh:name "skos:related is disjoint from other skos semantic relations"@en ;
+  sh:description "A skos:related should be disjont from other skos semantic relations"@en ;
+  sh:severity sh:Violation ;
+  sh:path skos:topConceptOf ;
+  sh:class skos:ConceptScheme ;
+  sh:severity sh:Violation ;
+  sh:message "Target class of skos:topConceptOf should be a skos:ConceptScheme" .
