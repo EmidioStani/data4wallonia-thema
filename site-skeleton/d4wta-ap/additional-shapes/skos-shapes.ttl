@@ -26,6 +26,7 @@ skos:
   sh:targetClass skos:Concept ;
   rdfs:label "SKOS Concepts are disjoint from SKOS ConceptScheme"@en ;
   rdfs:comment "Instances of SKOS Concepts should be different from SKOS ConceptScheme"@en ;
+  sh:severity sh:Violation ;
   sh:sparql [
     sh:prefixes skos: ;
     sh:message "S9: skos:ConceptScheme is disjoint with skos:Concept." ;
@@ -40,7 +41,8 @@ skos:
 :DisjointConceptSchemeAndConcept a sh:NodeShape ;
   sh:targetClass skos:ConceptScheme ;
   rdfs:label "SKOS ConceptsScheme are disjoint from SKOS Concept"@en ;
-  rdfs:comment "Instances of SKOS ConceptsScheme should be different from SKOS Concept"@en ;  
+  rdfs:comment "Instances of SKOS ConceptsScheme should be different from SKOS Concept"@en ; 
+  sh:severity sh:Violation ;  
   sh:sparql [
     sh:prefixes skos: ;
     sh:message "S9: skos:ConceptScheme is disjoint with skos:Concept (viceversa)." ;
@@ -59,33 +61,46 @@ skos:
   sh:targetSubjectsOf skos:prefLabel ;
   sh:targetSubjectsOf skos:altLabel ;
   sh:targetSubjectsOf skos:hiddenLabel ;
-  rdfs:label "SKOS prefLabel, altLabel and hiddenLabel are disjoint"@en ;
-  rdfs:comment "Instances of SKOS prefLabel, altLabel and hiddenLabel should be disjoint"@en ;  
-  sh:property [
-    sh:path skos:prefLabel ;
-    sh:message "S13: skos:prefLabel, skos:altLabel and skos:hiddenLabel are pairwise disjoint properties." ;
-    sh:disjoint skos:altLabel ;
-    sh:disjoint skos:hiddenLabel ;
-  ] ;
-  sh:property [
-    sh:path skos:altLabel ;
-    sh:message "S13: skos:prefLabel, skos:altLabel and skos:hiddenLabel are pairwise disjoint properties." ;
-    sh:disjoint skos:hiddenLabel ;
-    sh:disjoint skos:prefLabel ;
-  ] ;
-  sh:property [
-    sh:path skos:hiddenLabel ;
-    sh:message "S13: skos:prefLabel, skos:altLabel and skos:hiddenLabel are pairwise disjoint properties." ;
-    sh:disjoint skos:altLabel ;
-    sh:disjoint skos:prefLabel ;
-  ] ;
-  sh:property [
-    sh:path skos:prefLabel ;
-    sh:message "S14: A resource has no more than one value of skos:prefLabel per language tag." ;
-    sh:datatype rdf:langString ;
-    sh:uniqueLang true ;
-  ] ;
-  .
+  rdfs:label "SKOS lexical labels are disjoint and prefLabel unique"@en ;
+  rdfs:comment "Instances of SKOS prefLabel, altLabel and hiddenLabel should be disjoint and prefLabel unique"@en ;  
+  sh:property :SKOS-PrefLabelDisjoint, :SKOS-AltLabelDisjoint,
+              :SKOS-HiddenLabelDisjoint, :SKOS-PrefLabelUnique .
+
+:SKOS-PrefLabelDisjoint a sh:PropertyShape ;
+  sh:name "skos:prefLabel is disjoint from other lexical labels"@en ;
+  sh:description "A skos:prefLabel should be disjont from other labels" ;
+  sh:severity sh:Violation ;
+  sh:path skos:prefLabel ;
+  sh:message "S13: skos:prefLabel, skos:altLabel and skos:hiddenLabel are pairwise disjoint properties." ;
+  sh:disjoint skos:altLabel ;
+  sh:disjoint skos:hiddenLabel .
+
+:SKOS-AltLabelDisjoint a sh:PropertyShape ;
+  sh:name "skos:altLabel is disjoint from other lexical labels"@en ;
+  sh:description "A skos:altLabel should be disjont from other labels" ;
+  sh:severity sh:Violation ;
+  sh:path skos:altLabel ;
+  sh:message "S13: skos:prefLabel, skos:altLabel and skos:hiddenLabel are pairwise disjoint properties." ;
+  sh:disjoint skos:hiddenLabel ;
+  sh:disjoint skos:prefLabel .
+  
+:SKOS-HiddenLabelDisjointa sh:PropertyShape ;
+  sh:name "skos:hiddenLabel is disjoint from other lexical labels"@en ;
+  sh:description "A skos:hiddenLabel should be disjont from other labels" ;
+  sh:severity sh:Violation ;
+  sh:path skos:hiddenLabel ;
+  sh:message "S13: skos:prefLabel, skos:altLabel and skos:hiddenLabel are pairwise disjoint properties." ;
+  sh:disjoint skos:altLabel ;
+  sh:disjoint skos:prefLabel .
+
+:SKOS-PrefLabelUnique sh:PropertyShape ;
+  sh:name "skos:hiddenLabel is disjoint from other lexical labels"@en ;
+  sh:description "A skos:hiddenLabel should be disjont from other labels" ;
+  sh:severity sh:Violation ;
+  sh:path skos:prefLabel ;
+  sh:message "S14: A resource has no more than one value of skos:prefLabel per language tag." ;
+  sh:datatype rdf:langString ;
+  sh:uniqueLang true .
 
 ######################
 # Semantic Relations
