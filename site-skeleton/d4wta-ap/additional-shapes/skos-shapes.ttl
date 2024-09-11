@@ -7,7 +7,6 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-
 # declare the skos prefix to use it in later SPARQL-based constraints
 skos:
   a owl:Ontology ;
@@ -218,7 +217,6 @@ skos:
   sh:description "A skos:related should be disjont from other skos semantic relations"@en ;
   sh:severity sh:Violation ;
   sh:path skos:note ;
-  sh:severity sh:Violation ;
   sh:datatype rdf:langString ;
   sh:message "[SKOS.R15] - Note should be provided with a language tag." .
   
