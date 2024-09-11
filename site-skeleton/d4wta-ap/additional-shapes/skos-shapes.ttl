@@ -113,6 +113,8 @@ skos:
   sh:targetSubjectsOf skos:broader ;
   sh:targetSubjectsOf skos:narrower ;
   sh:targetSubjectsOf skos:related ;
+  rdfs:label "SKOS semantic relations are between skos:Concept"@en ;
+  rdfs:comment "Domain and range of SKOS semantic relations is the class skos:Concept."@en ;  
   sh:sparql [
     sh:prefixes skos: ;
     sh:message "S19/S20: domain and range of SKOS semantic relations is the class skos:Concept. " ;
@@ -127,6 +129,8 @@ skos:
 :ConceptShape
   a sh:NodeShape ;
   sh:targetClass skos:Concept ;
+  rdfs:label "skos:concept has requirements to be respected"@en ;
+  rdfs:comment "The SKOS specification describe requirements for a skos:Concept"@en ; 
   sh:property [
     sh:path skos:prefLabel ;
     sh:minCount 1 ;
