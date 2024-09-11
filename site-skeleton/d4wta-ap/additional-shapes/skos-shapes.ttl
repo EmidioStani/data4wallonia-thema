@@ -22,9 +22,10 @@ skos:
 ####################
 # ConceptSchemes
 ####################
-:DisjointConceptAndConceptScheme
-  a sh:NodeShape ;
+:DisjointConceptAndConceptScheme a sh:NodeShape ;
   sh:targetClass skos:Concept ;
+  rdfs:label "SKOS Concepts are disjoint from SKOS ConceptScheme"@en ;
+  rdfs:comment "Instances of SKOS Concepts should be different from SKOS ConceptScheme"@en ;
   sh:sparql [
     sh:prefixes skos: ;
     sh:message "S9: skos:ConceptScheme is disjoint with skos:Concept." ;
@@ -36,9 +37,10 @@ skos:
   ] ;
 .
 
-:DisjointConceptSchemeAndConcept
-  a sh:NodeShape ;
+:DisjointConceptSchemeAndConcept a sh:NodeShape ;
   sh:targetClass skos:ConceptScheme ;
+  rdfs:label "SKOS ConceptsScheme are disjoint from SKOS Concept"@en ;
+  rdfs:comment "Instances of SKOS ConceptsScheme should be different from SKOS Concept"@en ;  
   sh:sparql [
     sh:prefixes skos: ;
     sh:message "S9: skos:ConceptScheme is disjoint with skos:Concept (viceversa)." ;
@@ -53,11 +55,12 @@ skos:
 ###################
 # Lexical Labels
 ###################
-:LexicalLabels
-  a sh:NodeShape ;
+:LexicalLabels a sh:NodeShape ;
   sh:targetSubjectsOf skos:prefLabel ;
   sh:targetSubjectsOf skos:altLabel ;
   sh:targetSubjectsOf skos:hiddenLabel ;
+  rdfs:label "SKOS prefLabel, altLabel and hiddenLabel are disjoint"@en ;
+  rdfs:comment "Instances of SKOS prefLabel, altLabel and hiddenLabel should be disjoint"@en ;  
   sh:property [
     sh:path skos:prefLabel ;
     sh:message "S13: skos:prefLabel, skos:altLabel and skos:hiddenLabel are pairwise disjoint properties." ;
@@ -87,10 +90,11 @@ skos:
 ######################
 # Semantic Relations
 ######################
-:SemanticRelationsS27
-  a sh:NodeShape ;
+:SemanticRelationsS27 a sh:NodeShape ;
   sh:targetSubjectsOf skos:broader ;
   sh:targetSubjectsOf skos:related ;
+  rdfs:label "SKOS related is disjoint with broaderTransitive"@en ;
+  rdfs:comment "Instances of SKOS related is disjoint with broaderTransitive."@en ;  
   sh:property [
     sh:path skos:related ;
     sh:message "S27: skos:related is disjoint with the property skos:broaderTransitive." ;
