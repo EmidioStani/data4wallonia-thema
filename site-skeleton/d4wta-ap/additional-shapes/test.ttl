@@ -169,3 +169,6 @@ ex:concept44 a skos:Concept ;
 
 ex:conceptscheme1 a skos:ConceptScheme .
 ex:conceptscheme2 a skos:ConceptScheme, skos:Concept .
+
+ex:conceptscheme3 a skos:ConceptScheme ;
+   skos:hasTopConcept ex:concepts3 .
