@@ -1,6 +1,6 @@
 @prefix euvoc: <http://publications.europa.eu/ontology/euvoc#> .
 @prefix ex: <http://example.com/> .
-@prefix owl: <http://www.w3.org/2002/07/owl#>
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix status: <http://publications.europa.eu/resource/authority/concept-status/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
